@@ -3,23 +3,12 @@ import ItemForm from './ItemForm';
 import Item from './Item';
 
 function ShoppingList() {
-  const [selectedCategory, setSelectedCategory] = useState("All");
   const [items, setItems] = useState([]);
 
   useEffect(() => {
-    let isMounted = true; // Track whether the component is mounted
-
     fetch("http://localhost:4000/items")
       .then((r) => r.json())
-      .then((items) => {
-        if (isMounted) {
-          setItems(items);
-        }
-      });
-
-    return () => {
-      isMounted = false; // Cleanup function to set isMounted to false
-    };
+      .then((items) => setItems(items));
   }, []);
 
   function handleAddItem(newItem) {
